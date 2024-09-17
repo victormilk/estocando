@@ -15,8 +15,8 @@ void main() {
         id: id,
         name: name,
         description: description,
-        imageUrl: imageUrl,
-        stock: stock,
+        image: imageUrl,
+        quantity: stock,
       );
 
       // Assert
@@ -24,8 +24,8 @@ void main() {
       expect(item.id, id);
       expect(item.name, name);
       expect(item.description, description);
-      expect(item.imageUrl, imageUrl);
-      expect(item.stock, stock);
+      expect(item.image, imageUrl);
+      expect(item.quantity, stock);
     });
 
     test('should be able to construct an item without description', () {
@@ -33,8 +33,8 @@ void main() {
       const item = Item(
         id: id,
         name: name,
-        imageUrl: imageUrl,
-        stock: stock,
+        image: imageUrl,
+        quantity: stock,
       );
 
       // Assert
@@ -42,8 +42,8 @@ void main() {
       expect(item.id, id);
       expect(item.name, name);
       expect(item.description, isNull);
-      expect(item.imageUrl, imageUrl);
-      expect(item.stock, stock);
+      expect(item.image, imageUrl);
+      expect(item.quantity, stock);
     });
   });
 
@@ -57,32 +57,32 @@ void main() {
       final item = Item.create(
         name: name,
         description: description,
-        imageUrl: imageUrl,
-        stock: stock,
+        image: imageUrl,
+        quantity: stock,
       );
 
       // Assert
       expect(item, isA<Item>());
       expect(item.name, name);
       expect(item.description, description);
-      expect(item.imageUrl, imageUrl);
-      expect(item.stock, stock);
+      expect(item.image, imageUrl);
+      expect(item.quantity, stock);
     });
 
     test('should be able to create a new item without description', () {
       // Act
       final item = Item.create(
         name: name,
-        imageUrl: imageUrl,
-        stock: stock,
+        image: imageUrl,
+        quantity: stock,
       );
 
       // Assert
       expect(item, isA<Item>());
       expect(item.name, name);
       expect(item.description, isNull);
-      expect(item.imageUrl, imageUrl);
-      expect(item.stock, stock);
+      expect(item.image, imageUrl);
+      expect(item.quantity, stock);
     });
   });
 
@@ -91,8 +91,8 @@ void main() {
       id: 'e894d493-c529-442e-85d7-1cc0031ea12a',
       name: 'Shoes',
       description: 'A pair of shoes',
-      imageUrl: 'https://example.com/image.jpg',
-      stock: 10,
+      image: 'https://example.com/image.jpg',
+      quantity: 10,
     );
 
     const name = 'Bag';
@@ -114,12 +114,12 @@ void main() {
       expect(newItem.id, item.id);
       expect(newItem.name, name);
       expect(newItem.description, description);
-      expect(newItem.imageUrl, imageUrl);
-      expect(newItem.stock, stock);
+      expect(newItem.image, imageUrl);
+      expect(newItem.quantity, stock);
       expect(item.name, isNot(newItem.name));
       expect(item.description, isNot(newItem.description));
-      expect(item.imageUrl, isNot(newItem.imageUrl));
-      expect(item.stock, isNot(newItem.stock));
+      expect(item.image, isNot(newItem.image));
+      expect(item.quantity, isNot(newItem.quantity));
     });
 
     test('should be able to copy an item clearing the description', () {
@@ -133,8 +133,8 @@ void main() {
       expect(newItem.id, item.id);
       expect(newItem.name, item.name);
       expect(newItem.description, isNull);
-      expect(newItem.imageUrl, item.imageUrl);
-      expect(newItem.stock, item.stock);
+      expect(newItem.image, item.image);
+      expect(newItem.quantity, item.quantity);
       expect(item.description, isNotNull);
       expect(newItem.description, isNot(item.description));
     });
@@ -145,16 +145,16 @@ void main() {
       id: 'e894d493-c529-442e-85d7-1cc0031ea12a',
       name: 'Shoes',
       description: 'A pair of shoes',
-      imageUrl: 'https://example.com/shoes.jpg',
-      stock: 10,
+      image: 'https://example.com/shoes.jpg',
+      quantity: 10,
     );
 
     const secondItem = Item(
       id: 'e894d493-c529-442e-85d7-1cc0031ea12a',
       name: 'Shower',
       description: 'A shower',
-      imageUrl: 'https://example.com/shower.jpg',
-      stock: 2,
+      image: 'https://example.com/shower.jpg',
+      quantity: 2,
     );
 
     test('should be able to compare two items with the same id', () {
@@ -171,8 +171,8 @@ void main() {
         id: '80b845e9-2cd5-4d7a-b80c-4f67ed9efdb6',
         name: 'Laptop',
         description: 'A laptop',
-        imageUrl: 'https://example.com/laptop.jpg',
-        stock: 2,
+        image: 'https://example.com/laptop.jpg',
+        quantity: 2,
       );
 
       // Act

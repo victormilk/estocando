@@ -3,14 +3,16 @@ import 'package:estocando_flutter/src/features/item/domain/entity/item.dart';
 final class ItemModel {
   final String id;
   final String name;
-  final String? description;
+  final String description;
+  final String category;
   final String imageUrl;
   final int stock;
 
   const ItemModel({
     required this.id,
     required this.name,
-    this.description,
+    required this.description,
+    required this.category,
     required this.imageUrl,
     required this.stock,
   });
@@ -20,8 +22,9 @@ final class ItemModel {
       id: entity.id,
       name: entity.name,
       description: entity.description,
-      imageUrl: entity.imageUrl,
-      stock: entity.stock,
+      category: entity.category,
+      imageUrl: entity.image,
+      stock: entity.quantity,
     );
   }
 
@@ -29,18 +32,21 @@ final class ItemModel {
     return ItemModel(
       id: map['id'] as String,
       name: map['name'] as String,
-      description: map['description'] as String?,
-      imageUrl: map['imageUrl'] as String,
-      stock: map['stock'] as int,
+      description: map['description'] as String,
+      imageUrl: map['image'] as String,
+      stock: map['quantity'] as int,
+      category: map['category'] as String,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'name': this.name,
+      'brand': this.name,
+      'category': this.category,
       'description': this.description,
-      'imageUrl': this.imageUrl,
-      'stock': this.stock,
+      'image': this.imageUrl,
+      'quantity': this.stock,
     };
   }
 
@@ -49,8 +55,9 @@ final class ItemModel {
       id: this.id,
       name: this.name,
       description: this.description,
-      imageUrl: this.imageUrl,
-      stock: this.stock,
+      category: this.category,
+      image: this.imageUrl,
+      quantity: this.stock,
     );
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:image_picker/image_picker.dart';
 
 final class CameraUtils {
@@ -19,5 +22,12 @@ final class CameraUtils {
       imageQuality: 50,
     );
     return image;
+  }
+
+  static String toBase64(String imagePath) {
+    final bytes = File(imagePath).readAsBytesSync();
+    //return base64 with header
+    final extension = imagePath.split('.').last;
+    return 'data:image/$extension;base64,${base64Encode(bytes)}';
   }
 }

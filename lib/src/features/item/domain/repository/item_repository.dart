@@ -9,7 +9,7 @@ interface class ItemRepository {
     throw UnimplementedError();
   }
 
-  Future<Item> saveItem({required Item item}) async {
+  Future<void> saveItem({required Item item}) async {
     throw UnimplementedError();
   }
 

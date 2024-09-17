@@ -9,7 +9,7 @@ interface class ItemRemoteDatasource {
     throw UnimplementedError();
   }
 
-  Future<ItemModel> saveItem({required ItemModel item}) async {
+  Future<void> saveItem({required ItemModel item}) async {
     throw UnimplementedError();
   }
 

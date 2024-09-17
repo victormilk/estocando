@@ -26,8 +26,8 @@ void main() {
   const command = CreateItemCommand(
     name: 'Shoes',
     description: 'A pair of shoes',
-    imageUrl: 'https://example.com/image.jpg',
-    stock: 10,
+    image: 'https://example.com/image.jpg',
+    quantity: 10,
   );
 
   test('should return a failure when the item is not created', () async {

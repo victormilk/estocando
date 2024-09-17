@@ -6,34 +6,37 @@ import 'package:fpdart/fpdart.dart';
 
 final class CreateItemCommand extends Command {
   final String name;
-  final String? description;
-  final String imageUrl;
-  final int stock;
+  final String category;
+  final String description;
+  final String image;
+  final int quantity;
 
   const CreateItemCommand({
     required this.name,
-    this.description,
-    required this.imageUrl,
-    required this.stock,
+    required this.category,
+    required this.description,
+    required this.image,
+    required this.quantity,
   });
 }
 
-final class CreateItem extends UseCase<CreateItemCommand, Item> {
+final class CreateItem extends UseCase<CreateItemCommand, Unit> {
   final ItemRepository _itemRepository;
 
   const CreateItem(this._itemRepository);
 
   @override
-  Future<Either<Failure, Item>> execute(CreateItemCommand command) async {
+  Future<Either<Failure, Unit>> execute(CreateItemCommand command) async {
     try {
       final item = Item.create(
         name: command.name,
         description: command.description,
-        imageUrl: command.imageUrl,
-        stock: command.stock,
+        image: command.image,
+        quantity: command.quantity,
+        category: command.category,
       );
-      final savedItem = await _itemRepository.saveItem(item: item);
-      return right(savedItem);
+      await _itemRepository.saveItem(item: item);
+      return right(unit);
     } on Exception {
       return left(const UnknowFailure());
     }

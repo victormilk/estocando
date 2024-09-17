@@ -22,14 +22,13 @@ final class DefaultItemRemoteDatasource implements ItemRemoteDatasource {
 
   @override
   Future<List<ItemModel>> getItems({String? searchTerms}) async {
-    final response = await _apiClient.get(_path);
+    final response = await _apiClient.get(_path) as List;
     return List<ItemModel>.from(response.map((e) => ItemModel.fromMap(e)));
   }
 
   @override
-  Future<ItemModel> saveItem({required ItemModel item}) async {
-    final response = await _apiClient.post(_path, body: item.toMap());
-    return ItemModel.fromMap(response);
+  Future<void> saveItem({required ItemModel item}) async {
+    await _apiClient.post(_path, body: item.toMap());
   }
 
   @override

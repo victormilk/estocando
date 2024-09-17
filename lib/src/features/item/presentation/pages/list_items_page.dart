@@ -1,23 +1,11 @@
 import 'package:estocando_flutter/src/app_navigator.dart';
 import 'package:estocando_flutter/src/features/item/domain/entity/item.dart';
+import 'package:estocando_flutter/src/features/item/presentation/manager/item_state.dart';
 import 'package:estocando_flutter/src/features/item/presentation/widgets/widgets.dart';
 import 'package:estocando_flutter/src/shared/shared.dart';
 import 'package:flutter/material.dart';
 
-List<Item> generateList() {
-  final items = <Item>[];
-  for (var i = 0; i < 50; i++) {
-    items.add(
-      Item.create(
-        name: 'Item $i',
-        description: 'Descrição do item $i',
-        imageUrl: 'https://picsum.photos/1920?seed=$i',
-        stock: i,
-      ),
-    );
-  }
-  return items;
-}
+import '../manager/item_controller.dart';
 
 class ListItemsPage extends StatefulWidget {
   const ListItemsPage({super.key});
@@ -27,12 +15,17 @@ class ListItemsPage extends StatefulWidget {
 }
 
 class _ListItemsPageState extends State<ListItemsPage> {
-  final items = generateList();
-
+  final _itemController = injector<ItemController>();
   final _cameraController = injector<CameraController>();
 
   void _onHasImage(String imagePath) {
     navigator.push(addItemRoute, args: imagePath);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _itemController.fetchItems();
   }
 
   @override
@@ -54,23 +47,42 @@ class _ListItemsPageState extends State<ListItemsPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    return ItemCardWidget(
-                      item: item,
-                      onTap: () => navigator.push(
-                        itemDetailsRoute,
-                        args: item,
+              ValueListenableBuilder(
+                valueListenable: _itemController,
+                builder: (context, state, child) => switch (state.status) {
+                  ItemStateStatus.loading => const CircularProgressIndicator(),
+                  ItemStateStatus.error => Column(
+                    children: [
+                      Text("Erro ao carregar os itens"),
+                      ElevatedButton(
+                        onPressed: () => _itemController.fetchItems(),
+                        child: const Text("Tentar novamente"),
                       ),
-                    );
-                  },
-                ),
+                    ],
+                  ),
+                  _ => Expanded(
+                      child: RefreshIndicator(
+                        onRefresh: () async => _itemController.fetchItems(),
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                          ),
+                          itemCount: state.items.length,
+                          itemBuilder: (context, index) {
+                            final item = state.items[index];
+                            return ItemCardWidget(
+                              item: item,
+                              onTap: () => navigator.push(
+                                itemDetailsRoute,
+                                args: item,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                },
               ),
             ],
           ),

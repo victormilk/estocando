@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:estocando_flutter/src/features/item/domain/entity/item.dart';
 import 'package:estocando_flutter/src/features/item/domain/repository/item_repository.dart';
 import 'package:estocando_flutter/src/shared/errors/failures.dart';
@@ -22,7 +24,8 @@ final class ListItems extends UseCase<ListItemsCommand, List<Item>> {
           await _itemRepository.getItems(searchTerms: command.searchTerms);
 
       return right(items);
-    } on Exception {
+    } on Exception catch (e) {
+      log(e.toString());
       return left(const UnknowFailure());
     }
   }

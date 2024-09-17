@@ -28,14 +28,14 @@ final class UpdateItem extends UseCase<UpdateItemCommand, Unit> {
   @override
   Future<Either<Failure, Unit>> execute(UpdateItemCommand command) async {
     try {
-      final item = Item(
-        id: command.id,
-        name: command.name,
-        description: command.description,
-        imageUrl: command.imageUrl,
-        stock: command.stock,
-      );
-      await _itemRepository.updateItem(item: item);
+      // final item = Item(
+      //   id: command.id,
+      //   name: command.name,
+      //   description: command.description,
+      //   image: command.imageUrl,
+      //   quantity: command.stock,
+      // );
+      // await _itemRepository.updateItem(item: item);
       return right(unit);
     } on Exception {
       return left(const UnknowFailure());

@@ -20,7 +20,7 @@ class ItemDetailsPage extends StatelessWidget {
             children: [
               ItemImageBoxWidget(
                 child: CachedNetworkImage(
-                  imageUrl: item.imageUrl,
+                  imageUrl: item.image,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   placeholder: (context, url) => const Center(

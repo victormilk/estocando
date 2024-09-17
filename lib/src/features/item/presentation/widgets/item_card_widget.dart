@@ -31,7 +31,7 @@ class ItemCardWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CachedNetworkImage(
-                      imageUrl: item.imageUrl,
+                      imageUrl: item.image,
                       height: 200,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -63,7 +63,7 @@ class ItemCardWidget extends StatelessWidget {
         Positioned(
           right: 0,
           child: Badge.count(
-            count: item.stock,
+            count: item.quantity,
             smallSize: 24,
             largeSize: 32,
           ),

@@ -27,11 +27,9 @@ final class DefaultItemRepository implements ItemRepository {
   }
 
   @override
-  Future<Item> saveItem({required Item item}) async {
+  Future<void> saveItem({required Item item}) async {
     final modelFromEntity = ItemModel.fromEntity(item);
-    final itemModel =
-        await _itemRemoteDatasource.saveItem(item: modelFromEntity);
-    return itemModel.toEntity();
+    await _itemRemoteDatasource.saveItem(item: modelFromEntity);
   }
 
   @override
